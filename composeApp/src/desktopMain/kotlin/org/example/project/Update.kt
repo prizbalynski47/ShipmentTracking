@@ -1,9 +1,9 @@
-abstract class Update(
+class Update(
     private val type: String,
     private val timestamp: Long,
+    private val otherInfoStrategy: OtherInfoStrategy,
     private val otherInfo: String = ""
 ) {
-    abstract val otherInfoStrategy: OtherInfoStrategy
 
     fun applyUpdate(shipment: Shipment) {
         otherInfoStrategy.applyOtherInfo(shipment, otherInfo)
