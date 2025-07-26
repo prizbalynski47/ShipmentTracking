@@ -1,11 +1,17 @@
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
+
 class Shipment(
     private val id: String,
 ) {
-    private var status: String = "created"
-    private val notes = mutableListOf<String>()
-    private var expectedDeliveryDateTimestamp = 0L
-    private var currentLocation = "unknown"
-    private val shipmentUpdates = mutableListOf<ShippingUpdate>()
+    private var _status by mutableStateOf("created")
+    private var _expectedDeliveryDateTimestamp by mutableStateOf(0L)
+    private var _currentLocation by mutableStateOf("unknown")
+
+    private val shipmentUpdates = mutableStateListOf<ShippingUpdate>()
+    private val notes = mutableStateListOf<String>()
 
     fun storeUpdate(update: ShippingUpdate) {
         shipmentUpdates += update
@@ -16,42 +22,30 @@ class Shipment(
     }
 
     fun setCurrentLocation(location: String) {
-        currentLocation = location
+        _currentLocation = location
     }
 
     fun setExpectedDeliveryDateTimestamp(timestamp: Long) {
-        expectedDeliveryDateTimestamp = timestamp
+        _expectedDeliveryDateTimestamp = timestamp
     }
 
     fun setStatus(newStatus: String) {
-        status = newStatus
+        _status = newStatus
     }
 
-    fun getStatus(): String {
-        return status
-    }
+    fun getStatus(): String = _status
 
-    fun getId(): String {
-        return id
-    }
+    fun getId(): String = id
 
-    fun getNotes(): MutableList<String> {
-        return notes
-    }
+    fun getNotes(): List<String> = notes
 
     fun addNote(note: String) {
         notes += note
     }
 
-    fun getExpectedDeliveryDateTimestamp(): Long {
-        return expectedDeliveryDateTimestamp
-    }
+    fun getExpectedDeliveryDateTimestamp(): Long = _expectedDeliveryDateTimestamp
 
-    fun getShipmentUpdates(): MutableList<ShippingUpdate> {
-        return shipmentUpdates
-    }
+    fun getShipmentUpdates(): List<ShippingUpdate> = shipmentUpdates
 
-    fun getCurrentLocation(): String {
-        return currentLocation
-    }
+    fun getCurrentLocation(): String = _currentLocation
 }
