@@ -115,7 +115,8 @@ fun Home () {
                             )
                             Text(
                                 text = "Expected Delivery: ${
-                                    SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault()).format(Date(shipment.getExpectedDeliveryDateTimestamp()))
+                                    if (shipment.getExpectedDeliveryDateTimestamp() != 0L) SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault()).format(Date(shipment.getExpectedDeliveryDateTimestamp()))
+                                    else "-"
                                 }"
                             )
                             Text(
